@@ -43,7 +43,6 @@ class morphological_analysis_api:
 
         return result_list
         
-
     def __to_put_mecab_result_in_order__(self, mecab_result: str) -> morphological_analysis_api_model:
         if(mecab_result == 'EOS'):
             return None
