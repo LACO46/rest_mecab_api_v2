@@ -28,10 +28,13 @@ class morphological_analysis_api_model:
 
 class morphological_analysis_api:
     def mecab(self, word: str) -> list:
+        # 変数の定義
         mecab = MeCab.Tagger()
         result_list = []
 
+        # Mecabを利用した形態素解析
         for result in mecab.parse(word).split("\n"):
+            # 形態素解析の結果を整頓
             to_put_mecab_result_in_order = self.__to_put_mecab_result_in_order__(result)
             if(to_put_mecab_result_in_order == None):
                 break
