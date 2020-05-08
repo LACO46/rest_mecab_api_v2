@@ -2,6 +2,7 @@
 from flask import Flask, jsonify, request, Response
 
 # import file
+from controller import morphological_analysis_controllers
 
 class urls:
     app = Flask(__name__)
@@ -10,6 +11,12 @@ class urls:
     @app.route('/', methods=['GET'])
     def index():
         return "Hello World\n"
+
+    @app.route('/v1/morphological-analysis/', methods=['POST'])
+    def morphological_analysis():
+        morphological_analysis_controller = morphological_analysis_controllers.morphological_analysis_controller()
+        return morphological_analysis_controller.morphological_analysis(request)
+
 
     @app.errorhandler(400)
     @app.errorhandler(404)
