@@ -2,7 +2,6 @@
 
 import MeCab
 
-
 class morphological_analysis_api_model:
     def __init__(self, 
             word: str, 
