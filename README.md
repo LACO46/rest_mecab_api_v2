@@ -21,3 +21,29 @@ curl -v -H "Accept: application/json" -H "Content-type: application/json" -X POS
 ```
 
 - 形態素解析したい文章を`<word>`に入力する
+
+## MeCabで離礁する辞書の更新
+
+### リクエスト
+
+```
+curl http://localhost:8080/v1/update/mecab-dict/
+```
+
+### 更新結果について
+
+- 成功
+
+```
+{
+  "message": "update mecab dict succeed"
+}
+```
+
+- 失敗
+
+```
+{
+  "message": "update mecab dict failed"
+}
+```
