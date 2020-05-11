@@ -25,3 +25,5 @@ RUN python3.6 -m pip install pip --upgrade
 
 RUN pip install flask
 RUN pip install mecab-python3
+
+WORKDIR /home
