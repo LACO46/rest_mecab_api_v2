@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+    rest_mecab_api:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        container_name: rest_mecab_api
+        volumes:
+            - ./:/home
+        working_dir: /home
+        ports:
+            - 8080:80
+        tty: true
+        # command: python3 main.py

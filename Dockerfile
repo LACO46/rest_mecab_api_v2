@@ -1,29 +1,35 @@
-FROM ubuntu:18.04
+FROM python:3.7.5-alpine3.10
 
-RUN apt-get update \
- && apt-get install -y mecab \
- && apt-get install -y libmecab-dev \
- && apt-get install -y mecab-ipadic-utf8\
- && apt-get install -y git\
- && apt-get install -y make\
- && apt-get install -y curl\
- && apt-get install -y xz-utils\
- && apt-get install -y file\
- && apt-get install -y sudo\
- && apt-get install -y wget
+MAINTAINER nownabe
 
-RUN git clone --depth 1 https://github.com/neologd/mecab-ipadic-neologd.git\
- && cd mecab-ipadic-neologd\
- && bin/install-mecab-ipadic-neologd -n -y
+RUN apk add --update --no-cache build-base
 
-RUN apt-get install -y software-properties-common vim
-RUN add-apt-repository -r ppa:jonathonf/python-3.6
-RUN apt-get update -q
+ENV MECAB_VERSION 0.996
+ENV IPADIC_VERSION 2.7.0-20070801
+ENV mecab_url https://drive.google.com/uc?export=download&id=0B4y35FiV1wh7cENtOXlicTFaRUE
+ENV ipadic_url https://drive.google.com/uc?export=download&id=0B4y35FiV1wh7MWVlSDBCSXZMTXM
+ENV build_deps 'curl git bash file sudo openssh'
+ENV dependencies 'openssl'
 
-RUN apt-get install -y build-essential python3.6 python3.6-dev python3-pip python3.6-venv
-RUN python3.6 -m pip install pip --upgrade
+RUN apk add --update --no-cache ${build_deps}
+
+# Install dependencies
+RUN apk add --update --no-cache ${dependencies}
+
+# Install MeCab
+RUN curl -SL -o mecab-${MECAB_VERSION}.tar.gz ${mecab_url} \
+    && tar zxf mecab-${MECAB_VERSION}.tar.gz \
+    && cd mecab-${MECAB_VERSION} \
+    && ./configure --enable-utf8-only --with-charset=utf8 \
+    && make \
+    && make install \
+    && cd
+
+
+# Install Neologd
+RUN git clone --depth 1 https://github.com/neologd/mecab-ipadic-neologd.git \
+    && mecab-ipadic-neologd/bin/install-mecab-ipadic-neologd -n -y
 
 RUN pip install flask
 RUN pip install mecab-python3
-
-WORKDIR /home
+RUN pip install unidic-lite
