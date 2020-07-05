@@ -22,6 +22,37 @@ curl -v -H "Accept: application/json" -H "Content-type: application/json" -X POS
 
 - 形態素解析したい文章を`<word>`に入力する
 
+### 更新結果について
+
+```
+{
+  "result": [
+    {
+      "hiragana": "すもも", 
+      "kana": "スモモ", 
+      "kanji": "李", 
+      "part_of_speech": {
+        "one": "名詞", 
+        "three": "一般", 
+        "two": "普通名詞"
+      }
+    }, 
+    ...
+    {
+      "hiragana": "うち", 
+      "kana": "ウチ", 
+      "kanji": "内", 
+      "part_of_speech": {
+        "one": "名詞", 
+        "three": "副詞可能", 
+        "two": "普通名詞"
+      }
+    }
+  ]
+}
+
+```
+
 ## MeCabで離礁する辞書の更新
 
 ### リクエスト
