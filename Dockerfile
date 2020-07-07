@@ -30,6 +30,5 @@ RUN curl -SL -o mecab-${MECAB_VERSION}.tar.gz ${mecab_url} \
 RUN git clone --depth 1 https://github.com/neologd/mecab-ipadic-neologd.git \
     && mecab-ipadic-neologd/bin/install-mecab-ipadic-neologd -n -y
 
-RUN pip install flask
-RUN pip install mecab-python3
-RUN pip install unidic-lite
+ADD requirements.txt /
+RUN pip install -r requirements.txt
